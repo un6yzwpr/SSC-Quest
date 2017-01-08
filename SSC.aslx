@@ -324,9 +324,9 @@
                                                           msg ("- <b>\"Third. While dancing, you MUST pose clear ID shots as follows: (a) while fully dressed: standing with legs together (front, side, and back) with hands down. (b) while with panties down to your knees and topless: standing with legs wide and pushing your boobs up, bent down with legs wide and hands spreading your ass. (c) while nude: standing (front, side, and back) with legs wide and hands behind the head, squatting with legs wide and hands spreading cunt lips, and lying on your back with legs wide up and hands spreading your ass. <i>You MUST wait for a Photo Flash for each of these ID shots</i>\"</b> <br/>")
                                                           wait {
                                                             msg ("-<b>\"Fourth and Last. You <i>SHALL</i> behave as submissively as possible, and by the end of the routine his boots MUST be polished. On the other hand, you <i>MUST</i> behave as erotically as possible too. However, you <i>MUST NEVER</i> let anything from your asshole into your pussy directly\"</b><br/>")
-															wait {
-															  msg("<b>\"When you caught violating any 'MUST' or 'MUST NOT' rule, there will be a Dark Flash (lights will go dim for a moment)\"</b><br/><br/>-<b>\"Is it understood?\"</b><br/>- \"Yes, Mistress...\"")
-															}
+                                                            wait {
+                                                              msg ("<b>\"When you caught violating any 'MUST' or 'MUST NOT' rule, there will be a Dark Flash (lights will go dim for a moment)\"</b><br/><br/>-<b>\"Is it understood?\"</b><br/>- \"Yes, Mistress...\"")
+                                                            }
                                                           }
                                                         }
                                                       }
@@ -428,12 +428,13 @@
   <object name="test">
     <inherit name="editor_room" />
     <enter type="script"><![CDATA[
+      //SetFramePicture ("standing.png")
       msg ("<i>Positions/up</i>: {command:stand} | {command:bend over}<br/><i>Positions/transition</i>: {command:on one knee} | {command: squat} <br/><i>Positions/down</i>: {command:kneel up} | {command:kneel down} | {command:sit} | {command:prostrate} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:on fours} | {command: roll over}<br/><i>Turns</i>: {command:face Mistress} | {command:face from Mistress} | {command:face mannequin}<br/><i>Undressing<i>: {command: blouse off} | {command: skirt off} | {command: bra off} | Panties {command: move panties down:down} {command: panties off:off} | {command: drop item}<br/>&nbsp;&nbsp;&nbsp;&nbsp;stuff item in hands into {command: stuff item into mouth:mouth} {command: stuff item into cunt:cunt} | take item out of {command:take item out of mouth:mouth} {command:take item out of cunt:cunt}<br/>&nbsp;&nbsp;&nbsp;&nbsp;using item in hands as rope, {command:use item as rope rub cunt soft:rub cunt soft} {command:use item as rope rub cunt hard:rub cunt hard} {command:use item as rope rub ass crack:rub ass crack}<br/><i>Show</i>: {command:hands down} | {command:lift breasts} | {command: spread ass} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;spread cunt lips: {command: spread cunt lips with left hand:left hand} {command: spread cunt lips with right hand:right hand} {command: spread cunt lips with two hands:two hands}<br/><i>Submit to mannequin</i>: {command:kiss shoe} | {command:lick shoe} | {command:put a foot on your head} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:lick sole} | {command:sit on shoe}<br/><i>Self-Inflicting</i>: {command:slap tit} | {command:slap ass} | {command:pinch nipple} | {command:twist nipple} |<br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:slap pussy} | {command: pinch clit} | {command: flick clit} | {command:twist clit}<br/><i>Erotic/Left Hand</i>: Rub Clit: {command: rub clit with left finger:finger} {command: rub clit with left thumb:thumb} | Asshole: {command: insert left finger into asshole:insert} {command: remove left finger from asshole:remove} finger |<br/>&nbsp;&nbsp;&nbsp;&nbsp;Cunt: {command: insert left finger into cunt:insert} {command: remove left finger from cunt:remove} finger {command: insert left thumb into cunt:insert} {command: remove left thumb from cunt:remove} thumb | <br/>&nbsp;&nbsp;&nbsp;&nbsp;Mouth: {command: insert left finger into mouth:insert} {command: remove left finger from mouth:remove} finger {command: insert left thumb into mouth:insert} {command: remove left thumb from mouth:remove} thumb<br/><i>Erotic/Right Hand</i>: Rub Clit: {command: rub clit with right finger:finger} {command: rub clit with right thumb:thumb} | Asshole: {command: insert right finger into asshole:insert} {command: remove right finger from asshole:remove} finger |<br/>&nbsp;&nbsp;&nbsp;&nbsp;Cunt: {command: insert right finger into cunt:insert} {command: remove right finger from cunt:remove} finger {command: insert  right thumb into cunt:insert} {command: remove right thumb from cunt:remove} thumb | <br/>&nbsp;&nbsp;&nbsp;&nbsp;Mouth: {command: insert right finger into mouth:insert} {command: remove right finger from mouth:remove} finger  {command: insert right thumb into mouth:insert} {command: remove right thumb from mouth:remove} thumb")
       strip minigame.drums = Split("1;3;5;6;7;9;11;13;14;15;17;19;21;22;23;25;27;29;30;31;33;35;37;38;39",";")
       // msg (strip minigame.drums)
       strip minigame.stripitems = Split("panties to mid-thigh;blouse off;bra off;panties to knees;skirt off;panties off",";")
       strip minigame.striptimes = Split("8;16;24;32;33",";")
-	  //
+      //
       strip minigame.time = 0
       strip minigame.stripcount = 0
       strip minigame.drumcount = 0
@@ -444,10 +445,10 @@
       dictionary add (strip minigame.commands, "kneel up", command kneel up)
       dictionary add (strip minigame.commands, "kneel down", command kneel down)
       strip minigame.position = DictionaryItem(strip minigame.positions, "kneel up")
-	  //
-	  strip minigame.posdrum = -1
+      //
+      strip minigame.posdrum = -1
       strip minigame.violation demerits = 0
-	  EnableTimer (strip minigame timer)
+      EnableTimer (strip minigame timer)
       get input {
         // msg ("a:"+ToString(result))
         HandleStripGameInput (result)
@@ -489,14 +490,17 @@
       <position type="object">position kneel down</position>
     </object>
   </object>
+  <function name="InlinePic" parameters="fname"><![CDATA[
+      OutputTextNoBr ("<img src='quest://local/"+fname+"'>")
+  ]]></function>
   <function name="HandleStripGameInput" parameters="cmd"><![CDATA[
-    //OutputTextNoBr (" h:"+ToString(cmd))
+    // OutputTextNoBr (" h:"+ToString(cmd))
     if ( not DictionaryContains(strip minigame.commands, cmd)) {
       OutputTextNoBr (" <i>Unknown command</i>")
     }
     else {
       cmdo = DictionaryItem(strip minigame.commands, cmd)
-      //OutputTextNoBr ("?" + cmdo.ctype)
+      // OutputTextNoBr ("?" + cmdo.ctype)
       if ( cmdo.ctype = "position" ) {
         targetpos = cmdo.position
         if ( targetpos = strip minigame.position ) {
@@ -505,10 +509,10 @@
         else {
           strip minigame.position = targetpos
           OutputTextNoBr (" <i>"+targetpos.description+"</i>")
-		  if( strip minigame.posdrum = 1 ) {
-		    StripGameRuleViolation(10)
-		  }
-		  strip minigame.posdrum = 1
+          if ( strip minigame.posdrum = 1 ) {
+            StripGameRuleViolation (10)
+          }
+          strip minigame.posdrum = 1
         }
       }
     }
@@ -523,8 +527,10 @@
     }
   ]]></function>
   <function name="StripGameRuleViolation" parameters="demerits"><![CDATA[
-	strip minigame.violation demerits = strip minigame.violation demerits + demerits
-	OutputTextNoBr (" <b>Dark Flash!</b>")
+    strip minigame.violation demerits = strip minigame.violation demerits + demerits
+     OutputTextNoBr (" ")
+	 InlinePic("darkflash.png")
+    //  OutputTextNoBr ("<img src='quest://local/drum.png'>")
   ]]></function>
   <timer name="test timer">
     <interval>1</interval>
@@ -553,17 +559,19 @@
       if (strip minigame.drumcount<ListCount(strip minigame.drums)) {
         first = StringListItem(strip minigame.drums,strip minigame.drumcount)
         if (ToInt(first) = strip minigame.time) {
-          OutputTextNoBr (" Drum!")
+          //OutputTextNoBr (" Drum!")
+		  OutputTextNoBr(" ")
+		  InlinePic("drum.png")
           strip minigame.drumcount = strip minigame.drumcount + 1
-		  if(strip minigame.posdrum=0){
-		    StripGameRuleViolation(10)
-		  }
-		  strip minigame.posdrum = 0
+          if (strip minigame.posdrum=0) {
+            StripGameRuleViolation (10)
+          }
+          strip minigame.posdrum = 0
         }
       }
       else {
         msg ("<br/>Music Ends...")
-		msg ("Demerits:"+ToString(strip minigame.violation demerits))
+        msg ("Demerits:"+ToString(strip minigame.violation demerits))
         DisableTimer (strip minigame timer)
       }
     ]]></script>
