@@ -317,13 +317,16 @@
                                                     msg ("You obediently move to the podium, turn towards the Mistress and kneel there with your thighs being vertical and your hands behind your head.<br/><br/>-<b>\"Look down... Knees wider... Good!\"</b><br/><br/>Satisfied with your posture, she continues:<br/><br/>-<b>\"This striptease serves two purposes. First, to make necessary photos for your ID, and second - to test your obedience and eroticism. Each delay with obeying will earn you demerits, each failure to obey will earn you <i>LOTs</i> of demerits, and being erotic may earn you some points\"</b><br/>")
                                                     wait {
                                                       ClearScreen
-                                                      msg ("-<b>\"Now the rules. First. There will be music, and you <i>MUST</i> change your position within 1 second of each beat of the drum, and MUST NOT change your position in between drums. You <i>MUST NOT</i> use the same position twice in a row, and you <i>MUST</i> use as many different positions (and their variations) as possible while dancing.\"</b><br/>")
+                                                      msg ("-<b>\"Now the rules. First. There will be music, and you <i>MUST</i> change your position EXACTLY ONCE after each beat of the drum and before the next one. You <i>MUST NOT</i> use the same position twice in a row, and you <i>SHALL</i> use as many different positions (and their variations) as possible while dancing.\"</b><br/>")
                                                       wait {
                                                         msg ("-<b>\"Second. You <i>MUST NOT</i> do anything with your clothing until I tell you. Of course, you MUST comply to all my commands.\"</b><br/>")
                                                         wait {
-                                                          msg ("- <b>\"Third. You MUST provide clear ID shots as follows: (a) while fully dressed: standing with legs together (front, side, and back) with hands down. (b) while with panties down to your knees and topless: standing with legs wide and pushing your boobs up, bent down with legs wide and hands spreading your ass. (c) while nude: standing (front, side, and back) with legs wide and hands behind the head, squatting with legs wide and hands spreading cunt lips, and lying on your back with legs wide up and hands spreading your ass. <i>You MUST wait for a flash for each of these ID shots</i>\"</b> <br/>")
+                                                          msg ("- <b>\"Third. While dancing, you MUST pose clear ID shots as follows: (a) while fully dressed: standing with legs together (front, side, and back) with hands down. (b) while with panties down to your knees and topless: standing with legs wide and pushing your boobs up, bent down with legs wide and hands spreading your ass. (c) while nude: standing (front, side, and back) with legs wide and hands behind the head, squatting with legs wide and hands spreading cunt lips, and lying on your back with legs wide up and hands spreading your ass. <i>You MUST wait for a Photo Flash for each of these ID shots</i>\"</b> <br/>")
                                                           wait {
-                                                            msg ("-<b>\"Fourth and Last. You <i>MUST</i> behave as submissively as possible, and by the end of the routine his boots MUST be polished. On the other hand, you <i>MUST</i> behave as erotically as possible too. However, you <i>MUST NEVER</i> let anything from your asshole into your pussy directly\"</b><br/><br/>-<b>\"Is it understood?\"</b><br/>- \"Yes, Mistress...\"")
+                                                            msg ("-<b>\"Fourth and Last. You <i>SHALL</i> behave as submissively as possible, and by the end of the routine his boots MUST be polished. On the other hand, you <i>MUST</i> behave as erotically as possible too. However, you <i>MUST NEVER</i> let anything from your asshole into your pussy directly\"</b><br/>")
+															wait {
+															  msg("<b>\"When you caught violating any 'MUST' or 'MUST NOT' rule, there will be a Dark Flash (lights will go dim for a moment)\"</b><br/><br/>-<b>\"Is it understood?\"</b><br/>- \"Yes, Mistress...\"")
+															}
                                                           }
                                                         }
                                                       }
@@ -430,6 +433,7 @@
       // msg (strip minigame.drums)
       strip minigame.stripitems = Split("panties to mid-thigh;blouse off;bra off;panties to knees;skirt off;panties off",";")
       strip minigame.striptimes = Split("8;16;24;32;33",";")
+	  //
       strip minigame.time = 0
       strip minigame.stripcount = 0
       strip minigame.drumcount = 0
@@ -440,7 +444,10 @@
       dictionary add (strip minigame.commands, "kneel up", command kneel up)
       dictionary add (strip minigame.commands, "kneel down", command kneel down)
       strip minigame.position = DictionaryItem(strip minigame.positions, "kneel up")
-      EnableTimer (strip minigame timer)
+	  //
+	  strip minigame.posdrum = -1
+      strip minigame.violation demerits = 0
+	  EnableTimer (strip minigame timer)
       get input {
         // msg ("a:"+ToString(result))
         HandleStripGameInput (result)
@@ -464,12 +471,12 @@
     <object name="position kneel up">
       <inherit name="editor_object" />
       <standing type="int">0</standing>
-      <description>You're kneeling up</description>
+      <description>Kneeling up</description>
     </object>
     <object name="position kneel down">
       <inherit name="editor_object" />
       <standing type="int">0</standing>
-      <description>You're kneeling down</description>
+      <description>Kneeling down</description>
     </object>
     <object name="command kneel up">
       <inherit name="editor_object" />
@@ -483,21 +490,25 @@
     </object>
   </object>
   <function name="HandleStripGameInput" parameters="cmd"><![CDATA[
-    OutputTextNoBr (" h:"+ToString(cmd))
+    //OutputTextNoBr (" h:"+ToString(cmd))
     if ( not DictionaryContains(strip minigame.commands, cmd)) {
       OutputTextNoBr (" <i>Unknown command</i>")
     }
     else {
       cmdo = DictionaryItem(strip minigame.commands, cmd)
-      OutputTextNoBr ("?" + cmdo.ctype)
+      //OutputTextNoBr ("?" + cmdo.ctype)
       if ( cmdo.ctype = "position" ) {
         targetpos = cmdo.position
         if ( targetpos = strip minigame.position ) {
-          OutputTextNoBr (" <i>Same position - doing nothing</i>")
+          OutputTextNoBr (" <i>No change</i>")
         }
         else {
           strip minigame.position = targetpos
           OutputTextNoBr (" <i>"+targetpos.description+"</i>")
+		  if( strip minigame.posdrum = 1 ) {
+		    StripGameRuleViolation(10)
+		  }
+		  strip minigame.posdrum = 1
         }
       }
     }
@@ -510,6 +521,10 @@
         HandleStripGameInput (result)
       }
     }
+  ]]></function>
+  <function name="StripGameRuleViolation" parameters="demerits"><![CDATA[
+	strip minigame.violation demerits = strip minigame.violation demerits + demerits
+	OutputTextNoBr (" <b>Dark Flash!</b>")
   ]]></function>
   <timer name="test timer">
     <interval>1</interval>
@@ -540,10 +555,15 @@
         if (ToInt(first) = strip minigame.time) {
           OutputTextNoBr (" Drum!")
           strip minigame.drumcount = strip minigame.drumcount + 1
+		  if(strip minigame.posdrum=0){
+		    StripGameRuleViolation(10)
+		  }
+		  strip minigame.posdrum = 0
         }
       }
       else {
         msg ("<br/>Music Ends...")
+		msg ("Demerits:"+ToString(strip minigame.violation demerits))
         DisableTimer (strip minigame timer)
       }
     ]]></script>
