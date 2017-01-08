@@ -1,0 +1,557 @@
+<!--Saved by Quest 5.6.6108.15891-->
+<asl version="550">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="SSC">
+    <gameid>238d8d0e-86ba-4da9-b25d-367de7aa9817</gameid>
+    <version>1.0</version>
+    <firstpublished>2017</firstpublished>
+    <defaultfont>Verdana, Geneva, sans-serif</defaultfont>
+    <defaultwebfont>Montserrat</defaultwebfont>
+    <defaultbackground>#eac3b9</defaultbackground>
+    <defaultlinkforeground>Brown</defaultlinkforeground>
+    <menufont>'Arial Black', Gadget, sans-serif</menufont>
+    <menubackground>Black</menubackground>
+    <menuforeground>Pink</menuforeground>
+    <menuhoverbackground>Pink</menuhoverbackground>
+    <defaultfontsize type="int">14</defaultfontsize>
+    <category>Adult</category>
+    <start type="script">
+      globals.ingame time = 0
+      EnableTimer (ingame timer)
+    </start>
+  </game>
+  <object name="parking">
+    <inherit name="editor_room" />
+    <alias>the parking lot of the SSC Theme Park</alias>
+    <description><![CDATA[<br/><hr><br/>It looks almost a usual parking lot of your usual not-so-large theme park. A few hundred cars are already parked, and there is room for a hundred more. <br/><br/>At least from the outside, the park looks as a large castle. You can see a castle gate leading to the park entrance, with <b>"IN BONDAGE I AM FREE"</b> carved above the gate. Two seriously-looking guards are standing on both sides of the gate and watching the people going through. <br/><br/>You immediately notice two differences from usual amusement parks. First of all, while most visitors are casually dressed, you notice a few people who would look way too exotic in any other public place. A few girls in ultra-skimpy bikinis (some having not more than 5 square inches of cloth in total), and a few in lingerie including at least one with a garter belt. A few guys in tuxedos. Some people of both genders in latex. And to complete the picture - several guys and girls in rags and with ankle and wrist chains. You cannot help but to notice that some of these extravagantly dressed people look very sexy. <br/><br/>The second difference from your usual run-of-the-mill family enterntainment park is that there are no children at the parking, none at all. {random:Just a few teenagers are trying to hide in the shadow, eagerly watching those scantily dressed women coming in.:There are a few teenagers, however, trying to take a quick look through the gate, but keeping their distance from the gate guards.}]]></description>
+    <enter type="script">
+    </enter>
+    <beforefirstenter type="script">
+    </beforefirstenter>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <object name="player">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+      <gender>F</gender>
+      <object name="driver license">
+        <inherit name="editor_object" />
+      </object>
+      <object name="passport">
+        <inherit name="editor_object" />
+      </object>
+      <object name="credit card">
+        <inherit name="editor_object" />
+      </object>
+      <object name="shoes">
+        <inherit name="editor_object" />
+        <isclothing />
+        <isnudeclothing />
+        <clothinglayer type="int">1</clothinglayer>
+      </object>
+      <object name="stockings">
+        <inherit name="editor_object" />
+        <isclothing />
+        <isnudeclothing />
+        <clothinglayer type="int">1</clothinglayer>
+      </object>
+      <object name="skirt">
+        <inherit name="editor_object" />
+        <isclothing />
+        <clothinglayer type="int">4</clothinglayer>
+      </object>
+      <object name="blouse">
+        <inherit name="editor_object" />
+        <isclothing />
+        <clothinglayer type="int">4</clothinglayer>
+      </object>
+      <object name="bra">
+        <inherit name="editor_object" />
+        <isclothing />
+        <clothinglayer type="int">2</clothinglayer>
+      </object>
+      <object name="panties">
+        <inherit name="editor_object" />
+        <isclothing />
+        <clothinglayer type="int">2</clothinglayer>
+      </object>
+    </object>
+    <exit alias="to the gate" to="ticket office area">
+      <inherit name="northdirection" />
+      <runscript />
+      <script type="script"><![CDATA[
+        ClearScreen
+        msg ("As you're approaching the gate, you can see two big signs <b>\"PRIVATE PROPERTY. IF YOU'RE OFFENDED BY NUDITY, PLEASE DON'T ENTER\"</b> on both sides of the gate.<br/><br/>While you're walking through the gate, you notice that both gate guards, while wearing usual business suits, have shiny golden-looking collars around their necks. <br/><br/>You can also see them stopping some of the younger-looking visitors and asking for their IDs. You guess it is to keep those teenagers out.<br/>")
+        wait {
+        }
+        MoveObject (player, ticket office area)
+      ]]></script>
+    </exit>
+    <exit alias="test" to="test">
+      <inherit name="southdirection" />
+    </exit>
+  </object>
+  <object name="ticket office area">
+    <inherit name="editor_room" />
+    <descprefix>You are at </descprefix>
+    <description><![CDATA[<br/><hr><br/>You're inside the castle now. In a distance, you can see 6 airport-style metal detectors. In front of the entrance, there are two typical tour guides holding their group signs up, to make sure that people from the group are not lost. <br/><br/>To the left, there is an office labeled <b>"Notary Public"</b> (which looks weird - what would notary public do here?), and a bit further - a quite large 1-story building with a sign <b>"Lockers"</b> above. To the right - there are several ticket booths.  <br/><br/>You notice that most of extravagantly-dressed people go to the lockers, and most of ordinarily-dressed guests are either standing in lines to ticket booths, or - after spending a minute or two staring at the ticket booths from distance - going to "Notary Public" office. <br/><br/>It seems to you that people are coming towards the park entrance only from "Lockers", and that quite a few of these guests are stark naked (and that one of the groups around tour guides is stark naked too) - but you cannot be completely sure at this distance.<br/>]]></description>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <exit alias="to the exit" to="parking">
+      <inherit name="southdirection" />
+      <runscript type="boolean">false</runscript>
+      <script type="script">
+        ClearScreen
+        MoveObject (player, parking)
+      </script>
+    </exit>
+    <object name="ticket booth object">
+      <inherit name="editor_object" />
+      <look><![CDATA[Looking at the ticket booth, you notice a large sign saying: <br/><br/>---------------<br/>First-time visitors please make sure to get your IDs at the Public Notary offices.<br/><br/><b><i>Full Rights Visitors:</i></b> <br/>  Day Pass: <b>$495.</b> <br/>  Year Pass: <b>$9995.</b> <br/>  Accommodations: <b>from $1995/day, $9995/week.</b> <br/><br/><b><i>Slave Candidate Visitors:</i></b> <b>FREE - if you have appropriate ID.</b> Slave Candidate Visitors are required to be stark naked while on premises, and will be leashed too. <br/><br/>----------------<br/>]]></look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <alias>ticket booth</alias>
+      <joinline type="script">
+        msg ("You spend a few minutes in the line before reaching a ticket booth. ")
+        MoveObject (player, ticket booth room)
+      </joinline>
+      <exit alias="west" to="ticket office area">
+        <inherit name="westdirection" />
+      </exit>
+    </object>
+    <object name="table for filling forms">
+      <inherit name="editor_object" />
+      <look>This is a usual table intended for form filling, like those used in airports. This one has two piles of forms. Near the first pile there is sign of "Form A. For Full-Rights Visitors". Near the second pile there is a sign of "Form B. For Slave-Candidate Visitors".</look>
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <takeforma type="script">
+      </takeforma>
+      <takeformb type="script"><![CDATA[
+        msg ("You took form B from the pile.")
+        msg ("It is titled \"Form B. To be filled and signed by visitors to SSC Theme Park willing to undertake a Slave-Candidate Tour\"<br/><br/>After some usual legalize nonsense, the following items (conveniently marked with font being bold) catch your attention:<br/><br/>XI. Safety Collar<br/><br/>During the Tour, Candidate agrees to wear \"Safety Collar\" provided by SSC, all the time. Safety Collar is intended to ensure the safety of Members and other Visitors of the SSC Theme Park, and may issue electric shocks of varying intensity to achieve this purpose, in accordance with SSC internal regulations. In some cases, when the danger to the other Visitors is considered imminent, Safety Collar may issue electric shocks sufficient to knock an average person of Candidate weight down. <br/><br/>In case if Candidate feels any shock, s(he) agrees to stop any movements immediately. Normally, Safety Collar is programmed not to issue shocks to non-moving subjects.<br/><br/>You agree to indemnify SSC in case of any malfunction of Safety Collar, and...<br/><br/>XII. Nudity and Leash<br/><br/>During the Tour, Candidate agrees to be naked at all times, with a leash attached to the Safety Collar and handled by the Tour Guide. <br/><br/>XIII. Leaving the Tour<br/><br/>Candidate has the right to leave the Tour at any time; however, s(he) agrees that leaving the Tour without a good reason may lead to him/her being denied from entering the Tour in the future.<br/><br/>")
+        Ask ("Do you want to sign it?") {
+          if (result) {
+            AddToInventory (formb)
+            formb.signed = True
+            msg ("You signed \"Form B\" and put it into your inventory")
+          }
+          else {
+            AddToInventory (formb)
+            formb.signed = False
+            msg ("You didn't sign \"Form B\" but still put it into your inventory")
+          }
+        }
+      ]]></takeformb>
+    </object>
+    <exit alias="park entrance" to="park entrance">
+      <inherit name="northdirection" />
+      <runscript type="boolean">false</runscript>
+      <script type="script">
+        msg ("")
+      </script>
+    </exit>
+    <object name="notary office object">
+      <inherit name="editor_object" />
+      <displayverbs type="stringlist">
+        <value>Look at</value>
+      </displayverbs>
+      <look>You see an office with a big sign "Notary Public" on top. To see it better - you need to come closer.</look>
+      <alias>notary office</alias>
+      <walkto type="script">
+        MoveObject (player, outside notary office)
+      </walkto>
+    </object>
+  </object>
+  <verb>
+    <property>joinline</property>
+    <pattern>join line</pattern>
+    <defaultexpression>"You can't join line " + object.article + "."</defaultexpression>
+  </verb>
+  <object name="ticket booth">
+    <inherit name="editor_room" />
+    <descprefix>You are standing in front of</descprefix>
+    <alias>ticket booth</alias>
+    <description type="script"><![CDATA[
+      her = GetRandomInt(1,2)
+      if (her=2) {
+        msg ("Inside the booth, you see a girl selling tickets. Surprisingly for you, she's obviously naked above the waist - except for a shiny silver collar. Another surprise comes when you look at the large mirror positioned on a back wall of the booth - and see that he is not sitting on a chair, but rather on a some kind of dildo. With the view in the mirror being imperfect, you cannot tell, however, whether the dildo is in her vagina or in her anus.<br/><br/>Her: \"How may I help you?\"")
+      }
+      else {
+        msg ("Inside the booth, you see a guy selling tickets. He's obviously naked above the waist - except for a shiny silver collar. Surprisingly, when you look at the large mirror positioned on a back wall of the booth - and see that he's not sitting on a chair, but rather on a some kind of dildo.<br/><br/>Him: \"How may I help you?\"")
+      }
+    ]]></description>
+    <exit alias="back to ticket office area" to="ticket office area">
+      <inherit name="southdirection" />
+    </exit>
+  </object>
+  <object name="park entrance">
+    <inherit name="editor_room" />
+    <descprefix>You are at</descprefix>
+    <description><![CDATA[<br/><hr><br/>You're standing in front of 6 airport-like metal detectors. The only difference from your usual security screening is that they're operated by completely naked people with silver- and gold-looking collars.<br/><br/>To the left side of you - there is a tour guide and several completely naked guests wearing only black collars. Each of the collars has a leash attached, the other end of leash is held by the tour guide. To the right side - another tour guide and several ordinarily dressed people - but you still noticed a black collar or two, though without the leashes. <br/><br/>Above two leftmost metal detectors there is a sign <b>"Slave Candidate Visitors. ID required. Only stark naked and leashed by a Tour Guide."</b> <br/><br/>Two metal detectors in the middle are labeled <b>"Members. Member ID required". </b><br/><br/>And two rightmost metal detectors are labeled <b>"Full Rights Visitors. ID and ticket required. Only accompanied by a Tour Guide"</b><br/>]]></description>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <exit alias="ticket office area" to="ticket office area">
+      <inherit name="southdirection" />
+    </exit>
+  </object>
+  <object name="outside notary office">
+    <inherit name="editor_room" />
+    <usedefaultprefix />
+    <alias>outside of notary office</alias>
+    <prefix type="string"></prefix>
+    <descprefix>You are </descprefix>
+    <description type="script"><![CDATA[
+      msg ("<br/><hr><br/>\"Notary Public\" is quite a posh office with two separate entrances. The entrance on the left has a smiling collared naked girl and a smiling collared naked guy standing on its sides. The guy has a banner around his neck saying <b>\"Full Rights Visitor IDs. $995 one-time fee.\"</b><br/>")
+      outside notary office.her = GetRandomInt(1,2)
+      if (outside notary office.her=2) {
+        msg ("The entrance on the right has two tree-thick wooden poles on its sides. One of the poles is labeled \"PAIN\", and has a guy in a very uncomfortable position attached to it. (illustration: Davo's Poleset 3) The guy is completely naked, saving for collar and cuffs. He is made to stand on his tiptoes with his legs wide, completely bend down, with his back to the pole and his ankles tied to the pole. To make it even more uncomfortable, his arms are tied to the pole pulling them up. His genitals are enclosed in a chastity device.<br/><br/>The second pole is labeled \"PLEASURE\", and has a large 12\"-inch dildo attached to it. In front of dildo, a girl is made kneeling. She is also completely naked, except for collar and cuffs. All four her cuffs are attached to a smaller pole which doesn't allow her to move towards the dildo. She tries to reach the dildo with her tongue, but there is still half an inch between her tongue and dildo. On her back it is written: <b>\"Slave Candidate Visitor IDs. FREE\"</b>")
+      }
+      else {
+        msg ("The entrance on the right has two tree-thick wooden poles on its sides. One of the poles is labeled \"PAIN\", and has a girl in a very uncomfortable position attached to it. (illustration: Davo's Poleset 3)The girl is completely naked, saving for collar and cuffs. She is made to stand on her tiptoes with her legs wide, completely bend down, with her back to the pole and her ankles tied to the pole. To make it even more uncomfortable, her arms are tied to the pole pulling them up. Her pussy is exposed and is obviously very wet. <br/><br/>The second pole is labeled \"PLEASURE\", and has a large 12\"-inch dildo attached to it. In front of dildo, a guy is made kneeling. He is also completely naked, except for collar and cuffs. All four his cuffs are attached to a smaller pole which doesn't allow him to move towards the dildo. He tries to reach the dildo with his tongue, but there is still half an inch between his tongue and dildo. On his back it is written: <b>\"Slave Candidate Visitor IDs. FREE\"</b>")
+      }
+    ]]></description>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <exit alias="back to ticket office area" to="ticket office area">
+      <inherit name="eastdirection" />
+    </exit>
+    <exit alias="Slave Candidate entrance" to="notary office slave">
+      <inherit name="northwestdirection" />
+    </exit>
+  </object>
+  <verb>
+    <property>walkto</property>
+    <pattern>walk to</pattern>
+    <defaultexpression>"You can't walk to " + object.article + "."</defaultexpression>
+  </verb>
+  <object name="notary office slave">
+    <inherit name="editor_room" />
+    <alias>notary office</alias>
+    <her type="int">0</her>
+    <description type="script"><![CDATA[
+      msg ("<br/><hr>")
+      notary office slave.her = GetRandomInt(1,2)
+      if (notary office slave.her = 2) {
+        msg ("The room is rather dark, but you can see a lady in latex sitting at the office table. She takes a cursory look at you, and in a casual voice says: <br/><br/>- <b>\"Sit!\".</b> ")
+      }
+      else {
+        msg ("The room is rather dark, but you can see a large guy sitting at the office table. He takes a cursory look at you, and in a casual voice says: <br/><br/>- <b>\"Sit!\". </b>")
+      }
+    ]]></description>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <exit alias="exit notary office" to="outside notary office">
+      <inherit name="southeastdirection" />
+    </exit>
+    <object name="office chair">
+      <inherit name="editor_object" />
+      <displayverbs type="stringlist" />
+      <sit type="script"><![CDATA[
+        ClearScreen
+        msg ("You sat on a chair.")
+        if (notary office slave.her=2) {
+          msg ("Now you can see that the lady at the desk is sitting on a chair which resembles a throne. She has a large medallion with <b>\"SSC\"</b> letters on it, around her neck, and a riding crop in her hands. She says: <br/>- <b>\"So, you <i>THINK</i> you want to become a slave, right?\"<b>")
+        }
+        else {
+          msg ("Now you can see that the guy at the desk  is sitting on a chair which resembles a throne. He is bare-chested, and has a large medallion with \"SSC\" letters on it, around his neck, and a riding crop in his hands. He says: <br/>- <b>\"So, you <i>THINK</i> you want to become a slave, right?\"</b>")
+        }
+        Ask ("") {
+          if (result) {
+            msg ("- \"Yes\"<br/>- <b>\"And today you're ready to walk stark naked, collared, and leashed?\"</b>")
+            Ask ("") {
+              if (result) {
+                msg ("- \"Yes\"<br/>- <b>\"And in the future you <i>THINK</i> you'll be ready to consent to any safe and sane request, however painful, sexual, humiliating or degrading it is?\"</b>")
+                Ask ("") {
+                  if (result) {
+                    msg ("- \"Yes\"<br/>- <b>\"Then read this form <i>CAREFULLY</i> and sign it if you agree\"</b>.")
+                    wait {
+                      ClearScreen
+                      msg ("You take a look at the form. It is titled <b>\"Form B. To be filled and signed by visitors to SSC Theme Park willing to undertake a Slave-Candidate Tour\"</b><br/><br/>After some usual legalize nonsense, the following items (with the most important points conveniently printed in bold) catch your attention:<br/><br/>XI. Safety Collar<br/><b>During the Tour, Candidate agrees to wear \"Safety Collar\" provided by SSC, at all times.</b> Safety Collar is intended to ensure the safety of Members and other Visitors of the SSC Theme Park, and may issue electric shocks of varying intensity to achieve this purpose, in accordance with SSC internal regulations. In some cases, when the danger to the other Visitors is considered imminent, <b>Safety Collar may issue electric shocks sufficient to knock an average person of Candidate weight down. In case if Candidate feels any shock, s(he) agrees to stop any movements immediately.</b> Normally, Safety Collar is programmed not to issue shocks to non-moving subjects. <br/><br/>You agree to indemnify SSC in case of any malfunction of Safety Collar, and &lt;more legalese follows&gt;<br/><br/>XII. Nudity and Leash<br/>During the Tour, Candidate agrees to be <b>naked at all times, with a leash attached to the Safety Collar and handled by the Tour Guide.</b> <br/><br/>XIII. Non-Objection and Leaving the Tour<br/>Candidate does not consider any sexual, BSDM, or fetish acts as objectionable and accepts observing them at his/her own will. Candidate has the right to leave the Tour at any time; however, s(he) agrees that leaving the Tour without a good reason may lead to him/her being denied from entering the Tour in the future. On the other hand, if Candidate verbally agrees to any activity during the Tour or otherwise initiates some of the activities offered, s(he) indemnifies SSC &lt;even more  legalese&gt;<br/><br/>XIV. Confidentiality<br/>Candidate agrees to keep all which (s)he observes on the SSC premises, as strictly confidential. In addition, s(he) agrees to pay $1'000'000 (1 million dollars) for each breach of confidentiality.<br/>")
+                      Ask ("Sign the form?") {
+                        if (result) {
+                          if (notary office slave.her=2) {
+                            msg ("You signed the form and passed it to her. ")
+                          }
+                          else {
+                            msg ("You signed the form and passed it to him")
+                          }
+                          wait {
+                            ClearScreen
+                            msg ("- <b>\"And I need two pieces of government-issued ID, and a major credit card\"</b>")
+                            if (Got(driver license) and Got(passport) and Got(credit card)) {
+                              msg ("- \"Here they are\"")
+                              MoveObject (credit card, globals)
+                              MoveObject (driver license, globals)
+                              MoveObject (passport, globals)
+                              if (notary office slave.her<99) {
+                                msg ("<br/>She takes your documents, reviews them carefully, and then signs and stamps them with a notary public stamp.<br/><br/>- <b>\"Now it is all perfectly signed and legal. \"</b><br/><br/>- <b>\"From now on you have to address me as Mistress. And you don't have 'breasts', 'butt', or 'pussy' anymore - just 'boobs' or 'tits', 'asshole', and 'cunt' \". Understood?</b>")
+                                Ask ("") {
+                                  if (result) {
+                                    msg ("- \"Yes, Mistress\"<br/>- <b>\"Good. So, which lower fuckholes do you have?\"</b>")
+                                    get input {
+                                      msg ("- \""+result+"\"")
+                                      if (IsRegexMatch("cunt.*asshole.*mistress",LCase(result)) or IsRegexMatch("asshole.*cunt.*mistress",LCase(result))) {
+                                        msg ("- <b>\"Good, at least you can listen to your superiors\"</b><br/><br/>She puts a leather collar on the table. <br/>- <b>\"Put this on\"</b><br/>")
+                                        Ask ("Comply?") {
+                                          if (result) {
+                                            ClearScreen
+                                            MoveObject (leather collar, player)
+                                            msg ("You put the collar around your neck and fasten it. You get a strange feeling about it - as if you do not belong to yourself anymore -and you seem to like this feeling too.<br/><br/>- <b>\"Good girl. From now on, you're officially a Wannabe Submissive. \"</b><br/>- <b>\"<i>IF</i> we accept you into training, you'll become Submissive, and then will have a choice to be trained into one or more of \"Cum Slut\", \"Pig Slut\", or \"Pain Slut\". After completion of these courses - you can be able to proceed into \"Proud Slut\" program, and from there - <i>IF</i> you want it -  into \"Switch Slut\" training.\"</b><br/><br/>-<b>\"Keep in mind that it is a long <i>LONG</i> road, and can take many years. For now - you're just a Wannabe Submissive, the absolutely lowest rank in hour slave hierarchy. Think about it - even Pig Sluts are regarded higher than yourself\"</b><br/><br/>- <b>\"And now, as you already agreed to keep everything confidential, you can see what it might look for you in the future - that is, if you're eventually accepted.\" </b>")
+                                            wait {
+                                              ClearScreen
+                                              msg ("Mistress rings the bell on her desk. <br/><br/>A naked girl and a naked guy (both wearing a collar and cuffs - you're getting used to it, but the girl also wears heels and stockings, and the guy is in chastity) enter the room. <br/><br/>- <b>\"Piece of Ass, resume licking my asshole. Cunt, make a copy of these documents.\"</b><br/><br/>The girl takes the documents and leaves the room. The guy crawls to get on his back under Mistress's throne - which happens to be a rimming throne. Some sounds start to come from under the throne, but they're too faint to recognize what is going on. Mistress hits the guy with the riding crop: <br/><br/>- <b>\"Louder, Piece of Ass, louder! We want our guest to hear what you're doing!\"</b><br/><br/>In a moment, sounds indeed become louder,  and it becomes clear now it is <i>slurping</i> sounds. ")
+                                              wait {
+                                                ClearScreen
+                                                msg ("Mistress addresses you: <br/>- <b>\"So, now we shall proceed with making your ID.\"</b> <br/>- <b>\"On your ID, you will have only your face, but within SSC systems we'll also have several of your full-body photos (nude, of course). These images will be shown to security when you're entering or exiting the park, and security will use the photos to identify you better.\"</b><br/>- <b>\"To make your ID, you're required to perform a striptease dance right here.\"</b><br/><br/>She snaps her fingers, lights in the room dim, and a small podium is highlighted, with a life-size mannequin of lady in latex on its left side.<br/><br/>- <b>\"Kneel up there, Hands Behind the Head! BTW, 'kneel up' is with your thighs being vertical.\"</b><br/> ")
+                                                Ask ("Comply?") {
+                                                  if (result) {
+                                                    ClearScreen
+                                                    msg ("You obediently move to the podium, turn towards the Mistress and kneel there with your thighs being vertical and your hands behind your head.<br/><br/>-<b>\"Look down... Knees wider... Good!\"</b><br/><br/>Satisfied with your posture, she continues:<br/><br/>-<b>\"This striptease serves two purposes. First, to make necessary photos for your ID, and second - to test your obedience and eroticism. Each delay with obeying will earn you demerits, each failure to obey will earn you <i>LOTs</i> of demerits, and being erotic may earn you some points\"</b><br/>")
+                                                    wait {
+                                                      ClearScreen
+                                                      msg ("-<b>\"Now the rules. First. There will be music, and you <i>MUST</i> change your position within 1 second of each beat of the drum, and MUST NOT change your position in between drums. You <i>MUST NOT</i> use the same position twice in a row, and you <i>MUST</i> use as many different positions (and their variations) as possible while dancing.\"</b><br/>")
+                                                      wait {
+                                                        msg ("-<b>\"Second. You <i>MUST NOT</i> do anything with your clothing until I tell you. Of course, you MUST comply to all my commands.\"</b><br/>")
+                                                        wait {
+                                                          msg ("- <b>\"Third. You MUST provide clear ID shots as follows: (a) while fully dressed: standing with legs together (front, side, and back) with hands down. (b) while with panties down to your knees and topless: standing with legs wide and pushing your boobs up, bent down with legs wide and hands spreading your ass. (c) while nude: standing (front, side, and back) with legs wide and hands behind the head, squatting with legs wide and hands spreading cunt lips, and lying on your back with legs wide up and hands spreading your ass. <i>You MUST wait for a flash for each of these ID shots</i>\"</b> <br/>")
+                                                          wait {
+                                                            msg ("-<b>\"Fourth and Last. You <i>MUST</i> behave as submissively as possible, and by the end of the routine his boots MUST be polished. On the other hand, you <i>MUST</i> behave as erotically as possible too. However, you <i>MUST NEVER</i> let anything from your asshole into your pussy directly\"</b><br/><br/>-<b>\"Is it understood?\"</b><br/>- \"Yes, Mistress...\"")
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                  else {
+                                                    msg ("- \"I am not going to do this!\"")
+                                                    msg ("<br/>You proudly marched from the notary office, but outside you realize that your documents remained within. After standing for a few minutes in frustration, however,  naked girl (the one named Cunt ) appeared in doors and threw the documents into your face.")
+                                                    MoveObject (credit card, player)
+                                                    MoveObject (driver license, player)
+                                                    MoveObject (passport, player)
+                                                    wait {
+                                                      MoveObject (player, outside notary office)
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                          else {
+                                            msg ("- \"I am not going to do this!\"")
+                                            msg ("<br/>You proudly marched from the notary office, but outside you realize that your documents remained within. After standing for a few minutes in frustration, however,  naked girl (the one named Cunt ) appeared in doors and threw the documents into your face.")
+                                            MoveObject (credit card, player)
+                                            MoveObject (driver license, player)
+                                            MoveObject (passport, player)
+                                            wait {
+                                              MoveObject (player, outside notary office)
+                                            }
+                                          }
+                                        }
+                                      }
+                                      else {
+                                        msg ("-<b>\"Stupid cunt! You can't even listen to instructions properly! Get the Fuck <i>OUT</i>! You can come again when you learn to listen your Mistress.\"</b><br/><br/>Devastated, you got out of the office, and to add insult to injury, outside you realize that your documents remained within. After standing for a few minutes in frustration, however,  naked girl (the one named Cunt ) appeared in doors and threw the documents into your face.")
+                                        MoveObject (credit card, player)
+                                        MoveObject (driver license, player)
+                                        MoveObject (passport, player)
+                                        wait {
+                                          MoveObject (player, outside notary office)
+                                        }
+                                      }
+                                    }
+                                  }
+                                  else {
+                                    msg ("- \"No way!\"")
+                                    msg ("<br/>You proudly marched from the notary office, but outside you realize that your documents remained within. After standing for a few minutes in frustration, however,  naked girl (the one named Cunt ) appeared in doors and threw the documents into your face.")
+                                    MoveObject (credit card, player)
+                                    MoveObject (driver license, player)
+                                    MoveObject (passport, player)
+                                    wait {
+                                      MoveObject (player, outside notary office)
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                            else {
+                              msg ("- \"I am terribly sorry, I happen to lose some of these somewhere\".<br/>- \"Come later then, when you have everything we need to complete your identification\". ")
+                              wait {
+                                MoveObject (player, outside notary office)
+                              }
+                            }
+                          }
+                        }
+                        else {
+                          msg ("- \"Sorry, I cannot sign it\"<br/>- \"So, you should have taken a wrong door. Good bye.\"")
+                          wait {
+                            MoveObject (player, outside notary office)
+                          }
+                        }
+                      }
+                    }
+                  }
+                  else {
+                    msg ("- \"No\".<br/>- \"So, you should have taken a wrong door. \"")
+                    wait {
+                      MoveObject (player, outside notary office)
+                    }
+                  }
+                }
+              }
+              else {
+                msg ("- \"No\".<br/>- \"So, you should have taken a wrong door. \"")
+                wait {
+                  MoveObject (player, outside notary office)
+                }
+              }
+            }
+          }
+          else {
+            msg ("- \"No\".<br/>- \"So, you should have taken a wrong door. \"")
+            wait {
+            }
+            MoveObject (player, outside notary office)
+          }
+        }
+      ]]></sit>
+    </object>
+  </object>
+  <object name="test">
+    <inherit name="editor_room" />
+    <enter type="script"><![CDATA[
+      msg ("<i>Positions/up</i>: {command:stand} | {command:bend over}<br/><i>Positions/transition</i>: {command:on one knee} | {command: squat} <br/><i>Positions/down</i>: {command:kneel up} | {command:kneel down} | {command:sit} | {command:prostrate} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:on fours} | {command: roll over}<br/><i>Turns</i>: {command:face Mistress} | {command:face from Mistress} | {command:face mannequin}<br/><i>Undressing<i>: {command: blouse off} | {command: skirt off} | {command: bra off} | Panties {command: move panties down:down} {command: panties off:off} | {command: drop item}<br/>&nbsp;&nbsp;&nbsp;&nbsp;stuff item in hands into {command: stuff item into mouth:mouth} {command: stuff item into cunt:cunt} | take item out of {command:take item out of mouth:mouth} {command:take item out of cunt:cunt}<br/>&nbsp;&nbsp;&nbsp;&nbsp;using item in hands as rope, {command:use item as rope rub cunt soft:rub cunt soft} {command:use item as rope rub cunt hard:rub cunt hard} {command:use item as rope rub ass crack:rub ass crack}<br/><i>Show</i>: {command:hands down} | {command:lift breasts} | {command: spread ass} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;spread cunt lips: {command: spread cunt lips with left hand:left hand} {command: spread cunt lips with right hand:right hand} {command: spread cunt lips with two hands:two hands}<br/><i>Submit to mannequin</i>: {command:kiss shoe} | {command:lick shoe} | {command:put a foot on your head} | <br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:lick sole} | {command:sit on shoe}<br/><i>Self-Inflicting</i>: {command:slap tit} | {command:slap ass} | {command:pinch nipple} | {command:twist nipple} |<br/>&nbsp;&nbsp;&nbsp;&nbsp;{command:slap pussy} | {command: pinch clit} | {command: flick clit} | {command:twist clit}<br/><i>Erotic/Left Hand</i>: Rub Clit: {command: rub clit with left finger:finger} {command: rub clit with left thumb:thumb} | Asshole: {command: insert left finger into asshole:insert} {command: remove left finger from asshole:remove} finger |<br/>&nbsp;&nbsp;&nbsp;&nbsp;Cunt: {command: insert left finger into cunt:insert} {command: remove left finger from cunt:remove} finger {command: insert left thumb into cunt:insert} {command: remove left thumb from cunt:remove} thumb | <br/>&nbsp;&nbsp;&nbsp;&nbsp;Mouth: {command: insert left finger into mouth:insert} {command: remove left finger from mouth:remove} finger {command: insert left thumb into mouth:insert} {command: remove left thumb from mouth:remove} thumb<br/><i>Erotic/Right Hand</i>: Rub Clit: {command: rub clit with right finger:finger} {command: rub clit with right thumb:thumb} | Asshole: {command: insert right finger into asshole:insert} {command: remove right finger from asshole:remove} finger |<br/>&nbsp;&nbsp;&nbsp;&nbsp;Cunt: {command: insert right finger into cunt:insert} {command: remove right finger from cunt:remove} finger {command: insert  right thumb into cunt:insert} {command: remove right thumb from cunt:remove} thumb | <br/>&nbsp;&nbsp;&nbsp;&nbsp;Mouth: {command: insert right finger into mouth:insert} {command: remove right finger from mouth:remove} finger  {command: insert right thumb into mouth:insert} {command: remove right thumb from mouth:remove} thumb")
+      strip minigame.drums = Split("1;3;5;6;7;9;11;13;14;15;17;19;21;22;23;25;27;29;30;31;33;35;37;38;39",";")
+      // msg (strip minigame.drums)
+      strip minigame.stripitems = Split("panties to mid-thigh;blouse off;bra off;panties to knees;skirt off;panties off",";")
+      strip minigame.striptimes = Split("8;16;24;32;33",";")
+      strip minigame.time = 0
+      strip minigame.stripcount = 0
+      strip minigame.drumcount = 0
+      strip minigame.positions = NewObjectDictionary()
+      dictionary add (strip minigame.positions, "kneel up", position kneel up)
+      dictionary add (strip minigame.positions, "kneel down", position kneel down)
+      strip minigame.commands = NewObjectDictionary()
+      dictionary add (strip minigame.commands, "kneel up", command kneel up)
+      dictionary add (strip minigame.commands, "kneel down", command kneel down)
+      strip minigame.position = DictionaryItem(strip minigame.positions, "kneel up")
+      EnableTimer (strip minigame timer)
+      get input {
+        // msg ("a:"+ToString(result))
+        HandleStripGameInput (result)
+      }
+    ]]></enter>
+    <beforeenter type="script">
+      ClearScreen
+    </beforeenter>
+    <exit alias="back to parking" to="parking">
+      <inherit name="westdirection" />
+    </exit>
+  </object>
+  <object name="globals">
+    <inherit name="editor_object" />
+    <object name="leather collar">
+      <inherit name="editor_object" />
+    </object>
+  </object>
+  <object name="strip minigame">
+    <inherit name="editor_object" />
+    <object name="position kneel up">
+      <inherit name="editor_object" />
+      <standing type="int">0</standing>
+      <description>You're kneeling up</description>
+    </object>
+    <object name="position kneel down">
+      <inherit name="editor_object" />
+      <standing type="int">0</standing>
+      <description>You're kneeling down</description>
+    </object>
+    <object name="command kneel up">
+      <inherit name="editor_object" />
+      <ctype>position</ctype>
+      <position type="object">position kneel up</position>
+    </object>
+    <object name="command kneel down">
+      <inherit name="editor_object" />
+      <ctype>position</ctype>
+      <position type="object">position kneel down</position>
+    </object>
+  </object>
+  <function name="HandleStripGameInput" parameters="cmd"><![CDATA[
+    OutputTextNoBr (" h:"+ToString(cmd))
+    if ( not DictionaryContains(strip minigame.commands, cmd)) {
+      OutputTextNoBr (" <i>Unknown command</i>")
+    }
+    else {
+      cmdo = DictionaryItem(strip minigame.commands, cmd)
+      OutputTextNoBr ("?" + cmdo.ctype)
+      if ( cmdo.ctype = "position" ) {
+        targetpos = cmdo.position
+        if ( targetpos = strip minigame.position ) {
+          OutputTextNoBr (" <i>Same position - doing nothing</i>")
+        }
+        else {
+          strip minigame.position = targetpos
+          OutputTextNoBr (" <i>"+targetpos.description+"</i>")
+        }
+      }
+    }
+    // msg("Listening...")
+    get input {
+      if (cmd="exit") {
+        msg ("e:"+ToString(cmd))
+      }
+      else {
+        HandleStripGameInput (result)
+      }
+    }
+  ]]></function>
+  <timer name="test timer">
+    <interval>1</interval>
+    <script><![CDATA[
+      test.count = test.count - 1
+      if (test.count <= 0) {
+        DisableTimer (test timer)
+        msg ("time is up!")
+      }
+      OutputTextNoBr (ToString(test.count) + "...")
+    ]]></script>
+  </timer>
+  <timer name="strip minigame timer">
+    <interval>1</interval>
+    <script><![CDATA[
+      strip minigame.time = strip minigame.time + 1
+      // msg(strip minigame.stripcount)
+      // msg(ListCount(strip minigame.striptimes))
+      if (strip minigame.stripcount<ListCount(strip minigame.striptimes)) {
+        first = StringListItem(strip minigame.striptimes,strip minigame.stripcount)
+        if (ToInt(first) = strip minigame.time) {
+          OutputTextNoBr (" <b>"+StringListItem(strip minigame.stripitems,strip minigame.stripcount)+"<b>!")
+          strip minigame.stripcount = strip minigame.stripcount + 1
+        }
+      }
+      if (strip minigame.drumcount<ListCount(strip minigame.drums)) {
+        first = StringListItem(strip minigame.drums,strip minigame.drumcount)
+        if (ToInt(first) = strip minigame.time) {
+          OutputTextNoBr (" Drum!")
+          strip minigame.drumcount = strip minigame.drumcount + 1
+        }
+      }
+      else {
+        msg ("<br/>Music Ends...")
+        DisableTimer (strip minigame timer)
+      }
+    ]]></script>
+  </timer>
+  <timer name="ingame timer">
+    <interval>1</interval>
+    <script>
+      globals.ingame time = globals.ingame time+1
+    </script>
+  </timer>
+</asl>
